@@ -29,10 +29,7 @@ class Structure:
             if issubclass(cls, Structure):
                 raise AttributeError(cls.__name__, __class__.__name__)
         except TypeError:
-            if value:
-                self.__dict__[key] = value
-            elif key not in self.__dict__:
-                self.__dict__[key] = None
+            self.__dict__[key] = value
 
     def __str__(self):
         return str(dict(self))
@@ -50,7 +47,7 @@ class Structure:
                         else:
                             self.__dict__[key] = value(d.get(key))
                 except TypeError:
-                    setattr(self, key, d.get(key) or value)
+                    setattr(self, key, d.get(key) if key in d else value)
 
     def __iter__(self):
         for key, val in self.__dict__.items():
