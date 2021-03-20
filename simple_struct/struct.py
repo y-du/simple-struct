@@ -38,6 +38,8 @@ class Structure:
         return "{}({})".format(self.__class__.__name__, dict(self))
 
     def from_dict(self, d: dict):
+        if not isinstance(d, dict):
+            raise ValueError(d.__class__.__name__, dict.__name__)
         for key, value in self.__class__.__dict__.items():
             if not key.startswith("_"):
                 try:
