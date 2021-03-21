@@ -21,6 +21,8 @@ import typing
 
 class Structure:
     def __init__(self, d: typing.Optional[dict] = None, **kwargs):
+        if d and kwargs:
+            d.update(kwargs)
         self.from_dict(d or kwargs or dict())
 
     def __setattr__(self, key, value):
