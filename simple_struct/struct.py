@@ -20,8 +20,8 @@ import typing
 
 
 class Structure:
-    def __init__(self, _dict: typing.Optional[dict] = None):
-        self.from_dict(_dict or dict())
+    def __init__(self, _dict: typing.Optional[dict] = None, **kwargs):
+        self.from_dict(_dict or kwargs or dict())
 
     def __setattr__(self, key, value):
         cls = self.__class__.__dict__[key]
@@ -37,6 +37,13 @@ class Structure:
     def __repr__(self):
         return "{}({})".format(self.__class__.__name__, dict(self))
 
+    def __iter__(self):
+        for key, val in self.__dict__.items():
+            if isinstance(val, Structure):
+                yield key, dict(val)
+            else:
+                yield key, val
+
     def from_dict(self, d: dict):
         if not isinstance(d, dict):
             raise ValueError(d.__class__.__name__, dict.__name__)
@@ -51,12 +58,8 @@ class Structure:
                 except TypeError:
                     setattr(self, key, d.get(key) if key in d else value)
 
-    def __iter__(self):
-        for key, val in self.__dict__.items():
-            if isinstance(val, Structure):
-                yield key, dict(val)
-            else:
-                yield key, val
+    def to_dict(self) -> dict:
+        return dict(self)
 
 
 def structure(cls):

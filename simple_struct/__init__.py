@@ -14,7 +14,7 @@
    limitations under the License.
 """
 
-__version__ = '0.0.3'
+__version__ = '0.1.0'
 __title__ = 'simple-struct'
 __description__ = 'Define structures that play well with IDE code completion.'
 __url__ = 'https://github.com/y-du/simple-struct'
