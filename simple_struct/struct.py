@@ -52,7 +52,7 @@ class Structure:
                 try:
                     if issubclass(value, Structure):
                         if self.__dict__.get(key):
-                            self.__dict__[key].__from_dict(d.get(key) or dict())
+                            self.__dict__[key].from_dict(d.get(key) or dict())
                         else:
                             self.__dict__[key] = value(d.get(key))
                 except TypeError:
