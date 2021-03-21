@@ -20,8 +20,8 @@ import typing
 
 
 class Structure:
-    def __init__(self, _dict: typing.Optional[dict] = None, **kwargs):
-        self.from_dict(_dict or kwargs or dict())
+    def __init__(self, d: typing.Optional[dict] = None, **kwargs):
+        self.from_dict(d or kwargs or dict())
 
     def __setattr__(self, key, value):
         cls = self.__class__.__dict__[key]
